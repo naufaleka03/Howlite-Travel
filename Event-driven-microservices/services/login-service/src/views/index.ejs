@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Howlite Shuttle</title>
+    <link rel="stylesheet" href="/css/output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-poppins">
+    <%- include('navbar') %>
+    <%- include('sidebar') %>
+    <!-- Main content here -->
+    <div class="container mx-auto mt-20">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-6">Welcome to Howlite Shuttle</h1>
+            <p class="text-xl text-customGray">Your premier choice for intercity travel</p>
+        </div>
+        <div class="grid grid-cols-3 gap-4 mt-8">
+            <div class="bg-customGray-lightest p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold mb-2">Book a Ride</h2>
+                <p class="text-customGray">Quickly book a shuttle to your destination with ease.</p>
+                <a href="#" class="mt-4 inline-block bg-customGray-dark text-white py-2 px-4 rounded hover:bg-customGray">Book Now</a>
+            </div>
+            <div class="bg-customGray-lightest p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold mb-2">View Routes</h2>
+                <p class="text-customGray">Explore all our routes and find the best option for your travel needs.</p>
+                <a href="#" class="mt-4 inline-block bg-customGray-dark text-white py-2 px-4 rounded hover:bg-customGray">Explore Routes</a>
+            </div>
+            <div class="bg-customGray-lightest p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold mb-2">Contact Support</h2>
+                <p class="text-customGray">Need help? Contact our support team for assistance.</p>
+                <a href="#" class="mt-4 inline-block bg-customGray-dark text-white py-2 px-4 rounded hover:bg-customGray">Get Help</a>
+            </div>
+        </div>
+    </div>
+    <%- include('footer') %>
+</body>
+</html>
