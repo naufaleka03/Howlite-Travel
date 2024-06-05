@@ -12,10 +12,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Import routes
-const signRoutes = require('./routes/signRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
 // Use routes
-app.use('/', signRoutes);
+app.use('/', bookingRoutes);
 
 // Start the server with socket.io
 const PORT = process.env.PORT || 3000;
