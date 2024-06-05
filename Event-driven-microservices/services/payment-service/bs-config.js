@@ -1,10 +1,10 @@
-module.exports = {
-    proxy: "yourlocal.dev", // Replace with your local development URL
-    files: [
-        "src/**/*.{html,css,js,ejs}", // Adjust the paths to match your project structure
-        "views/**/*.ejs" // Add this line to watch EJS files in the views directory
-    ],
-    port: 3099,
-    open: false,
-    notify: false
-};
+// module.exports = {
+//     proxy: "http://localhost:3099",
+//     files: [
+//       "services/payment-service/public/css/*.css",
+//       "services/payment-service/src/views/*.ejs"
+//     ],
+//     notify: false,
+//     port: 3000,
+//     open: false // Menetapkan ini ke false akan mencegah browser-sync membuka browser secara otomatis
+//   };
