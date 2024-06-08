@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Howlite Shuttle</title>
+    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/custom.css"> <!-- Include custom CSS here -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-poppins">
+    <div class=""> <!-- Add padding to the container -->
+        <%- include('navbar') %>   
+    </div>
+    
+    <!-- Main content here -->
+    <div class="relative pb-96 bg-slate-100"> <!-- Add padding to the container -->
+        <img src="/images/bus_hero_image.jpg" alt="Hero Image" class="w-full h-80 object-cover brightness-75">
+        <div class="flex gap-8 ml-20 absolute top-20 left-0 right-0"> <!-- Group sidebar and booking list in a flex container with a gap, overlaying the hero image -->
+            <%- include('sidebar') %>
+            <div class="w-2/3 p-6 bg-slate-50 rounded-lg shadow-md bg-opacity-95" alt="Booking List">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="font-semibold">Daftar Tiket / Pesanan</h1>
+                        <h2 class="text-sm text-gray-400">Daftar tiket yang kamu pesan</h2>
+                    </div>
+                    <button class="bg-customBlue-base hover:bg-customBlue-deep text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out">
+                        Buat Pesanan
+                    </button>
+                </div>
+                <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
+                <% bookings.slice(0, 5).forEach(function(booking, index) { %>
+                    <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-8' : 'mt-4' %> <%= index === bookings.length - 1 ? 'mb-6' : '' %>">
+                        <p class="p-2 font-medium text-customBlue-deep"><%= booking.id %></p>
+                        <p class="px-2 font-semibold"><%= booking.departure %> -> <%= booking.destination %></p>
+                        <p class="px-2 text-sm text-gray-400"><%= booking.date %> / <%= booking.time %></p>
+                        <p class="px-2 pt-2 text-sm text-gray-500">Harga tiket: <span class="text-customBlue-deep">Rp<%= booking.price.toLocaleString() %></span></p>
+                        <p class="px-2 pb-2 text-sm text-gray-500">Nomor kursi: <span class="text-customBlue-deep"><%= booking.seatNumber %></span></p>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>
+
+</body>
+</html>
