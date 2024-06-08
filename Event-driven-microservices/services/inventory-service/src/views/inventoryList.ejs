@@ -32,14 +32,10 @@
                 <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
                 <% inventory.slice(0, 5).forEach(function(inventory, index) { %>
                     <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-8' : 'mt-4' %> <%= index === inventory.length - 1 ? 'mb-6' : '' %>">
-                        <p class="p-2 font-medium text-customBlue-deep"><%= inventory.id %></p>
-                        <p class="px-2 font-semibold"><%= inventory.departure %> -> <%= inventory.destination %></p>
-                        <p class="px-2 text-sm text-gray-400"><%= inventory.date %> / <%= inventory.time %></p>
-                        <p class="px-2 pt-2 text-sm text-gray-500">Harga tiket: <span class="text-customBlue-deep">Rp<%= inventory.price.toLocaleString() %></span></p>
-                        <p class="px-2 pb-2 text-sm text-gray-500">Nomor kursi: <span class="text-customBlue-deep"><%= inventory.seatNumber %></span></p>
+                        <p class="p-2 font-medium text-customBlue-deep"><%= inventory.nama_mobil %></p>
+                        <p class="px-2 font-semibold"><%= inventory.nama_mobil %> -> <%= inventory.detail %></p>
                     </div>
                 <% }); %>
-
             </div>
         </div>
     </div>

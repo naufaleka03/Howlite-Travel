@@ -11,5 +11,3 @@ exports.showInventoryPage = async (req, res) => {
         res.status(500).send('Error loading bookings');
     }
 };
-
-
