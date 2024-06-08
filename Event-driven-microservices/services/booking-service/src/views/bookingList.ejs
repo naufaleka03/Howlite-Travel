@@ -31,11 +31,15 @@
                 <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
                 <% bookings.slice(0, 5).forEach(function(booking, index) { %>
                     <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-8' : 'mt-4' %> <%= index === bookings.length - 1 ? 'mb-6' : '' %>">
-                        <p class="p-2 font-medium text-customBlue-deep"><%= booking.id %></p>
+                        <div class="flex justify-between px-2 pt-2">
+                            <p class="font-medium text-customBlue-deep"><%= booking.id %></p>
+                            <p class="px-2 pt-2 text-sm font-medium text-gray-500">Status:  <span class="p-2 <%= booking.status === 'Sudah dibayar' ? 'text-green-500 bg-green-100' : 'text-red-500 bg-red-100' %> rounded-lg shadow-md"><%= booking.status %></span></p>
+                        </div>
                         <p class="px-2 font-semibold"><%= booking.departure %> -> <%= booking.destination %></p>
                         <p class="px-2 text-sm text-gray-400"><%= booking.date %> / <%= booking.time %></p>
                         <p class="px-2 pt-2 text-sm text-gray-500">Harga tiket: <span class="text-customBlue-deep">Rp<%= booking.price.toLocaleString() %></span></p>
                         <p class="px-2 pb-2 text-sm text-gray-500">Nomor kursi: <span class="text-customBlue-deep"><%= booking.seatNumber %></span></p>
+                        
                     </div>
                 <% }); %>
             </div>
