@@ -1,65 +1,15 @@
 const inventoryModel = require('../models/inventoryModel');
 
-exports.inventoryList = async (req, res) => {
+exports.showInventoryPage = async (req, res) => {
     try {
-        // const bookings = await bookingModel.getBookings();
-        // res.render('bookingList', { bookings }); // Render the EJS template with bookings data
-        // Mock data for bookings
-        const inventory = [
-            {
-                id: '123',
-                departure: 'City A',
-                destination: 'City B',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '12A'
-            },
-
-            {
-                id: '123',
-                departure: 'Bandung',
-                destination: 'Pandeglang',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '32'
-            },
-
-            {
-                id: '123',
-                departure: 'Bandung',
-                destination: 'Pandeglang',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '32'
-            },
-
-            {
-                id: '123',
-                departure: 'Bandung',
-                destination: 'Pandeglang',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '32'
-            },
-
-            {
-                id: '123',
-                departure: 'Bandung',
-                destination: 'Pandeglang',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '32'
-            },
-            
-        ];
-        
-        res.render('inventoryList', { inventory }); // Render the EJS template with mock bookings data
+        console.log('Fetching bookings from database...');
+        const inventory = await inventoryModel.getInventory();
+        console.log('Inventory fetched:', inventory);
+        res.render('inventoryList', { inventory }); // Render the EJS template with real inventory data
     } catch (error) {
+        console.error('Error loading bookings:', error); // Log the error details
         res.status(500).send('Error loading bookings');
     }
 };
+
+
