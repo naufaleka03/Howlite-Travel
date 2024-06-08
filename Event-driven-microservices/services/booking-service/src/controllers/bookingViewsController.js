@@ -2,64 +2,12 @@ const bookingModel = require('../models/bookingModel');
 
 exports.showBookingsPage = async (req, res) => {
     try {
-        // const bookings = await bookingModel.getBookings();
-        // res.render('bookingList', { bookings }); // Render the EJS template with bookings data
-        // Mock data for bookings
-        const bookings = [
-            {
-                id: '123',
-                departure: 'City A',
-                destination: 'City B',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '12A'
-            },
-
-            {
-                id: '123',
-                departure: 'Bandung',
-                destination: 'Pandeglang',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '32'
-            },
-
-            {
-                id: '123',
-                departure: 'Bandung',
-                destination: 'Pandeglang',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '32'
-            },
-
-            {
-                id: '123',
-                departure: 'Bandung',
-                destination: 'Pandeglang',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '32'
-            },
-
-            {
-                id: '123',
-                departure: 'Bandung',
-                destination: 'Pandeglang',
-                date: '2023-10-05',
-                time: '15:00',
-                price: 1000000,
-                seatNumber: '32'
-            },
-            
-        ];
-        
-        res.render('bookingList', { bookings }); // Render the EJS template with mock bookings data
+        console.log('Fetching bookings from database...');
+        const bookings = await bookingModel.getBookings();
+        console.log('Bookings fetched:', bookings);
+        res.render('bookingList', { bookings }); // Render the EJS template with real bookings data
     } catch (error) {
+        console.error('Error loading bookings:', error); // Log the error details
         res.status(500).send('Error loading bookings');
     }
 };
