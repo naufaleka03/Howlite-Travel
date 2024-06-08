@@ -15,6 +15,46 @@ exports.showBookingsPage = async (req, res) => {
                 price: 1000000,
                 seatNumber: '12A'
             },
+
+            {
+                id: '123',
+                departure: 'Bandung',
+                destination: 'Pandeglang',
+                date: '2023-10-05',
+                time: '15:00',
+                price: 1000000,
+                seatNumber: '32'
+            },
+
+            {
+                id: '123',
+                departure: 'Bandung',
+                destination: 'Pandeglang',
+                date: '2023-10-05',
+                time: '15:00',
+                price: 1000000,
+                seatNumber: '32'
+            },
+
+            {
+                id: '123',
+                departure: 'Bandung',
+                destination: 'Pandeglang',
+                date: '2023-10-05',
+                time: '15:00',
+                price: 1000000,
+                seatNumber: '32'
+            },
+
+            {
+                id: '123',
+                departure: 'Bandung',
+                destination: 'Pandeglang',
+                date: '2023-10-05',
+                time: '15:00',
+                price: 1000000,
+                seatNumber: '32'
+            },
             
         ];
         

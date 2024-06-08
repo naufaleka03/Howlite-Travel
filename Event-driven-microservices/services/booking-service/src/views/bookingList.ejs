@@ -9,39 +9,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="font-poppins">
-    <div class="">
+    <div class=""> <!-- Add padding to the container -->
         <%- include('navbar') %>   
     </div>
     
     <!-- Main content here -->
-    <div class="relative pb-96 bg-slate-100">
-        <img src="https://via.placeholder.com/1920x300" alt="Hero Image Placeholder" class="w-full h-auto pb-96">
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 mt-6 p-6 bg-slate-50 rounded-lg shadow-md">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="font-semibold">Daftar Tiket / Pesanan</h1>
-                    <h2 class="text-sm text-gray-400">Daftar tiket yang kamu pesan</h2>
+    <div class="relative pb-[768px] bg-slate-100"> <!-- Add padding to the container and margin-bottom -->
+        <img src="/images/bus_hero_image.jpg" alt="Hero Image" class="w-full h-80 object-cover brightness-75">
+        <div class="flex gap-8 ml-20 absolute top-20 left-0 right-0"> <!-- Group sidebar and booking list in a flex container with a gap, overlaying the hero image -->
+            <%- include('sidebar') %>
+            <div class="w-2/3 p-6 bg-slate-50 rounded-lg shadow-md bg-opacity-95" alt="Booking List">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="font-semibold">Daftar Tiket / Pesanan</h1>
+                        <h2 class="text-sm text-gray-400">Daftar tiket yang kamu pesan</h2>
+                    </div>
+                    <button class="bg-customBlue-base hover:bg-customBlue-deep text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out">
+                        Buat Pesanan
+                    </button>
                 </div>
-                <button class="bg-customBlue-base hover:bg-customBlue-deep text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out">
-                    Buat Pesanan
-                </button>
+                <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
+                <% bookings.slice(0, 5).forEach(function(booking, index) { %>
+                    <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-8' : 'mt-4' %> <%= index === bookings.length - 1 ? 'mb-6' : '' %>">
+                        <p class="p-2 font-medium text-customBlue-deep"><%= booking.id %></p>
+                        <p class="px-2 font-semibold"><%= booking.departure %> -> <%= booking.destination %></p>
+                        <p class="px-2 text-sm text-gray-400"><%= booking.date %> / <%= booking.time %></p>
+                        <p class="px-2 pt-2 text-sm text-gray-500">Harga tiket: <span class="text-customBlue-deep">Rp<%= booking.price.toLocaleString() %></span></p>
+                        <p class="px-2 pb-2 text-sm text-gray-500">Nomor kursi: <span class="text-customBlue-deep"><%= booking.seatNumber %></span></p>
+                    </div>
+                <% }); %>
             </div>
-            <% bookings.slice(0, 5).forEach(function(booking, index) { %>
-                <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-10' : 'mt-4' %> <%= index === bookings.length - 1 ? 'mb-6' : '' %>">
-                    <p class="p-2 font-medium text-customBlue-deep"><%= booking.id %></p>
-                    <p class="px-2 font-semibold"><%= booking.departure %> -> <%= booking.destination %></p>
-                    <p class="px-2 text-sm text-gray-400"><%= booking.date %> / <%= booking.time %></p>
-                    <p class="px-2 pt-2 text-sm text-gray-500">Harga tiket: <span class="text-customBlue-deep">Rp<%= booking.price.toLocaleString() %></span></p>
-                    <p class="px-2 pb-2 text-sm text-gray-500">Nomor kursi: <span class="text-customBlue-deep"><%= booking.seatNumber %></span></p>
-                </div>
-            <% }); %>
         </div>
     </div>
 
-
-    
-    <%- include('footer') %>
-
+    <footer class="bg-customBlue-darker text-white py-8 px-4 w-full">
+        <div class="flex justify-center mb-8">
+            <div class="w-1/4">
+                <img src="/logo_landscape_white.png" alt="ECO-TOURISM GUIDE" class="w-auto h-20 mb-4" />
+                <p class="mt-4 mr-6">Menyediakan informasi tentang destinasi pariwisata yang ramah lingkungan dan berkualitas, serta kegiatan wisata yang mendukung pelestarian alam dan keberlanjutan ekonomi lokal.</p>
+            </div>
+            <div class="w-1/8 mr-20">
+                <h2 class="text-lg font-semibold mb-1 h-8">Company</h2>
+                <ul>
+                    <li><a href="#" class="hover:text-customGray-light">About us</a></li>
+                    <li><a href="#" class="hover:text-customGray-light">Contact us</a></li>
+                    <li><a href="#" class="hover:text-customGray-light">FAQs</a></li>
+                    <li><a href="#" class="hover:text-customGray-light">Search</a></li>
+                </ul>
+            </div>
+            <div class="w-1/8 mr-20">
+                <h2 class="text-lg font-semibold mb-1 h-8">Support</h2>
+                <img src="/kamenkraft.svg" alt="Kemenkrat" class="w-auto h-[120px] mb-1" />
+            </div>
+            <div class="w-1/8 mr-15">
+                <h2 class="text-lg font-semibold mb-1 h-8">Social Media</h2>
+                <div class="flex space-x-4">
+                    <FaFacebookF class="text-2xl hover:text-customGray-light cursor-pointer" />
+                    <FaInstagram class="text-2xl hover:text-customGray-light cursor-pointer" />
+                    <FaTwitter class="text-2xl hover:text-customGray-light cursor-pointer" />
+                    <FaLinkedinIn class="text-2xl hover:text-customGray-light cursor-pointer" />
+                </div>
+            </div>
+        </div>
+        <hr class="border-customGray" />
+        <p class="text-center">&copy; 2024 EcoTourismGuide. All rights reserved</p>
+    </footer>
 </body>
 </html>
-
