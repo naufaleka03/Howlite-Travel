@@ -17,11 +17,6 @@ const userRoutes = require('./routes/userRoutes');
 // Use routes
 app.use('/', userRoutes);
 
-// Serve index.ejs from views directory
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
-// Start the server
+// Start the server with socket.io
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server is running on http://localhost:${3001}`));
+app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));

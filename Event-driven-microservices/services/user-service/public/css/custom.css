@@ -1,0 +1,25 @@
+.section {
+  margin-bottom: 40px; /* Adjust the value as needed */
+}
+
+.bg-customBlue-veryLight {
+--tw-bg-opacity: 1;
+background-color: #F6F1F1; /* Very Light Blue */
+}
+
+.bg-customBlue-mediumLight {
+--tw-bg-opacity: 1;
+background-color: #AFD3E2; /* Medium Light Blue */
+}
+
+.bg-customBlue-deep {
+--tw-bg-opacity: 1;
+background-color: #146C94; /* Deep Blue */
+}
+
+.bg-customBlue-darker {
+--tw-bg-opacity: 1;
+background-color: #0A2E4E; /* Darker Blue */
+}
+
+/* Add any other custom styles here */
