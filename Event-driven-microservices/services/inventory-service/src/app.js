@@ -12,14 +12,14 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Import routes
-const homeRoutes = require('./routes/homeRoutes');
+const inventoryRoutes = require('./routes/inventoryRoutes');
 
 // Use routes
-app.use('/', homeRoutes);
+app.use('/', inventoryRoutes);
 
 // Serve index.ejs from views directory
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('inventoryList');
 });
 
 // Start the server

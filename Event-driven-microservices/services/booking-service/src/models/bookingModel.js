@@ -29,7 +29,7 @@ const updateBooking = async (id, bookingData) => {
 };
 
 const deleteBooking = async (id) => {
-    const result = await pool.query('DELETE FROM bookings WHERE id = $1 RETURNING *', [id]);
+    const result = await pool.query('DELETE FROM inventory WHERE id = $1 RETURNING *', [id]);
     return result.rows[0];
 };
 
