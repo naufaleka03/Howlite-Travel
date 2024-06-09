@@ -17,11 +17,11 @@ const paymentRoute = require('./routes/paymentRoute');
 // Use routes
 app.use('/', paymentRoute);
 
-// Serve index.ejs from views directory
-app.get('/', (req, res) => {
-    res.render('index');
-});
+// // Serve index.ejs from views directory
+// app.get('/', (req, res) => {
+//     res.render('index');
+// });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server is running on http://localhost:${3000}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server is running on http://localhost:${3001}`));

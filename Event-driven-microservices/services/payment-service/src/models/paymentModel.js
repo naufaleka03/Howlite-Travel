@@ -1,23 +1,42 @@
-const { Pool } = require('pg');
+const pool = require('../db');
 
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'howliteTravel',
-  password: 'password',
-  port: 5432,
-});
-
-// Fungsi untuk menguji koneksi database
-const testConnection = async () => {
-  try {
-    await pool.connect();  // Mencoba untuk terhubung
-    console.log('Koneksi ke database berhasil!');
-  } catch (error) {
-    console.error('Koneksi ke database gagal:', error);
-  }
+const getPayments = async () => {
+    const result = await pool.query('SELECT * FROM payment');
+    return result.rows;
 };
 
-testConnection();
+const getPaymentById = async (id) => {
+    const result = await pool.query('SELECT * FROM payments WHERE id = $1', [id]);
+    return result.rows[0];
+};
 
-module.exports = pool;
+const createPayment = async (paymentData) => {
+    const { amount, paymentDate, bookingId } = paymentData;
+    const result = await pool.query(
+        'INSERT INTO payments (amount, payment_date, booking_id) VALUES ($1, $2, $3) RETURNING *',
+        [amount, paymentDate, bookingId]
+    );
+    return result.rows[0];
+};
+
+const updatePayment = async (id, paymentData) => {
+    const { amount, paymentDate } = paymentData;
+    const result = await pool.query(
+        'UPDATE payments SET amount = $1, payment_date = $2 WHERE id = $3 RETURNING *',
+        [amount, paymentDate, id]
+    );
+    return result.rows[0];
+};
+
+const deletePayment = async (id) => {
+    const result = await pool.query('DELETE FROM payments WHERE id = $1 RETURNING *', [id]);
+    return result.rows[0];
+};
+
+module.exports = {
+    getPayments,
+    getPaymentById,
+    createPayment,
+    updatePayment,
+    deletePayment
+};
