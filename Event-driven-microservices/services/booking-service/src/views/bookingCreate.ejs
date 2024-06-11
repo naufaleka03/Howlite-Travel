@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Howlite Shuttle</title>
+    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/custom.css"> <!-- Include custom CSS here -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-poppins">
+    <div class=""> <!-- Add padding to the container -->
+        <%- include('navbar') %>   
+    </div>
+    
+    <!-- Main content here -->
+    <div class="relative pb-[768px] bg-slate-100"> <!-- Add padding to the container and margin-bottom -->
+        <img src="/images/bus_hero_image.jpg" alt="Hero Image" class="w-full h-80 object-cover brightness-75">
+        <div class="flex gap-8 ml-20 absolute top-20 left-0 right-0"> <!-- Group sidebar and booking list in a flex container with a gap, overlaying the hero image -->
+            <%- include('sidebar') %>
+            <div class="w-2/3 p-6 bg-slate-50 rounded-lg shadow-md bg-opacity-95" alt="Booking List">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="font-semibold">Buat Pesanan Baru</h1>
+                        <h2 class="text-sm text-gray-400">Silahkan tentukan destinasi dan waktu keberangkatan anda</h2>
+                    </div>
+                    <button class="bg-customBlue-base hover:bg-customBlue-deep text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out">
+                        Buat Pesanan
+                    </button>
+                </div>
+                <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
+                <form id="bookingFilterForm" action="/api/available-tickets/filter" method="POST">
+                    <div class="w-full bg-white rounded-lg shadow-md">
+                        <div class="flex justify-between px-4 py-4 space-x-4">
+                            <div class="flex flex-col flex-grow">
+                                <label for="destination" class="mb-1 text-sm font-medium">Keberangkatan</label>
+                                <select id="destination" class="p-1 text-sm rounded border border-gray-300 text-gray-700 w-full">
+                                    <option value="">Pilih Lokasi</option>
+                                    <optgroup label="Bandung">
+                                        <option value="destination1">Buah Batu</option>
+                                        <option value="destination2">Cimahi</option>
+                                        <option value="destination3">Pasteur</option>
+                                    </optgroup>
+                                    <optgroup label="Jakarta">
+                                        <option value="destination4">Cibubur</option>
+                                        <option value="destination5">Kelapa Gading</option>
+                                        <option value="destination6">Tebet</option>
+                                    </optgroup>
+                                    <optgroup label="Bekasi">
+                                        <option value="destination7">Pekayon</option>
+                                        <option value="destination8">Jatiwaringin</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="flex flex-col flex-grow">
+                                <label for="time" class="mb-1 text-sm font-medium">Destinasi</label>
+                                <select id="time" class="p-1 text-sm rounded border border-gray-300 text-gray-700 w-full">
+                                    <option value="">Pilih Lokasi</option>
+                                    <optgroup label="Bandung">
+                                        <option value="destination1">Buah Batu</option>
+                                        <option value="destination2">Cimahi</option>
+                                        <option value="destination3">Pasteur</option>
+                                    </optgroup>
+                                    <optgroup label="Jakarta">
+                                        <option value="destination4">Cibubur</option>
+                                        <option value="destination5">Kelapa Gading</option>
+                                        <option value="destination6">Tebet</option>
+                                    </optgroup>
+                                    <optgroup label="Bekasi">
+                                        <option value="destination7">Pekayon</option>
+                                        <option value="destination8">Jatiwaringin</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="flex flex-col flex-grow">
+                                <label for="vehicle" class="mb-1 text-sm font-medium">Jumlah Penumpang</label>
+                                <select id="vehicle" class="p-1 text-sm rounded border border-gray-300 text-gray-700 w-full">
+                                    <option value="">Pilih Jumlah</option>
+                                    <option value="1">1 Penumpang</option>
+                                    <option value="2">2 Penumpang</option>
+                                    <option value="3">3 Penumpang</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col flex-grow">
+                                <label for="date" class="mb-1 text-sm font-medium">Tanggal Berangkat</label>
+                                <input type="date" id="date" class="p-1 text-sm rounded border border-gray-300 text-gray-700 w-full">
+                            </div>
+                            <div class="flex justify-center">
+                                <button type="submit" class="bg-customBlue-base hover:bg-customBlue-deep text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out my-4">
+                                    Cari Tiket
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="resultsContainer" class="mt-8">
+        <!-- Dynamic results will be displayed here -->
+    </div>
+
+    <div class="footer">
+        <%- include('footer') %>   
+    </div>
+
+    <script>
+    document.getElementById('bookingFilterForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const response = await fetch(this.action, {
+            method: 'POST',
+            body: formData
+        });
+        const results = await response.json();
+        const container = document.getElementById('resultsContainer');
+        container.innerHTML = ''; // Clear previous results
+
+        // Dynamically create HTML for each result
+        results.forEach(booking => {
+            const div = document.createElement('div');
+            div.className = 'w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 mt-4';
+            div.innerHTML = `
+                <div class="flex justify-between px-2 pt-2">
+                    <p class="font-medium text-customBlue-deep">${booking.id}</p>
+                    <p>Status: <span class="p-2 ${booking.status === 'Available' ? 'text-green-500 bg-green-100' : 'text-red-500 bg-red-100'} rounded-lg shadow-md">${booking.status}</span></p>
+                </div>
+                <p class="px-2 font-semibold">${booking.departure} -> ${booking.destination}</p>
+                <p class="px-2 text-sm text-gray-400">${booking.date} / ${booking.time}</p>
+                <p class="px-2 pt-2 text-sm text-gray-500">Harga tiket: <span class="text-customBlue-deep">Rp${booking.price.toLocaleString()}</span></p>
+                <p class="px-2 pb-2 text-sm text-gray-500">Nomor kursi: <span class="text-customBlue-deep">${booking.seatNumber}</span></p>
+            `;
+            container.appendChild(div);
+        });
+    });
+    </script>
+</body>
+</html>
