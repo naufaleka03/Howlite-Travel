@@ -16,16 +16,25 @@ const createUser = async (userData) => {
         'INSERT INTO users (customer_name, user_date) VALUES ($1, $2) RETURNING *',
         [customerName, userDate]
     );
-    return result.rows[0];
+    return result.rows[0]; // Return the newly created user
 };
 
-const updateUser = async (id, userData) => {
-    const { customerName, userDate } = userData;
-    const result = await pool.query(
-        'UPDATE users SET customer_name = $1, user_date = $2 WHERE id = $3 RETURNING *',
-        [customerName, userDate, id]
-    );
-    return result.rows[0];
+const updateUser = async (userId, userData) => {
+    if (!userData) {
+        throw new Error('User data is undefined');
+    }
+
+    const { username, email, phone, gender, password } = userData;
+    const values = [username, email, phone, gender, password, userId];
+    const query = 'UPDATE users SET username = $1, email = $2, phone = $3, gender = $4, password = $5 WHERE id = $6';
+    
+    try {
+        const result = await pool.query(query, values);
+        console.log(result.rows[0]); // Tambahkan log untuk debugging
+        return result.rows[0];
+    } catch (err) {
+        throw new Error('Error updating user data');
+    }
 };
 
 const deleteUser = async (id) => {

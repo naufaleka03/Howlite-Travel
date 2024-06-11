@@ -32,13 +32,15 @@ exports.createUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
+    console.log(req.body); // Tambahkan log untuk debugging
     try {
-        const updatedUser = await userModel.updateUser(req.params.id, req.body);
-        res.json(updatedUser);
+        await userModel.updateUser(req.params.id, req.body);
+        res.redirect('/profile');
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 exports.deleteUser = async (req, res) => {
     try {
