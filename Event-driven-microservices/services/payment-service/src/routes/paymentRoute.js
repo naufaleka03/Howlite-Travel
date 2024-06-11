@@ -6,7 +6,19 @@ const paymentViewsController = require('../controllers/paymentViewsController');
 const paymentApiController = require('../controllers/paymentApiController');
 
 // View route for displaying payments
-router.get('/payments', paymentViewsController.showPaymentsPage);
+router.get('/paymentList', paymentViewsController.showPaymentsPage);
+router.post('/paymentList', paymentViewsController.showPaymentsPage);
+router.get('/payment', (req, res) => {
+    res.render('payment.ejs');
+});
+
+router.get('/unpaidPayment', paymentViewsController.showUnpaidPayments);
+router.get('/paymentForm', paymentViewsController.showPaymentForm);
+router.post('/processPayment', paymentViewsController.processPayment);
+router.get('/paymentListCompleted', paymentViewsController.showCompletedPayments);
+
+// POST route untuk mengirim data pembayaran
+// router.post('/payments', paymentController.processPayment);
 
 // API routes for managing payments
 router.get('/api/payments', paymentApiController.getAllPayments);

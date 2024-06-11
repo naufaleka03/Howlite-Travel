@@ -5,9 +5,14 @@ const getPayments = async () => {
     return result.rows;
 };
 
-const getPaymentById = async (id) => {
-    const result = await pool.query('SELECT * FROM payments WHERE id = $1', [id]);
+const getPaymentById = async (paymentId) => {
+    const result = await pool.query('SELECT * FROM payment WHERE id = $1', [paymentId]);
     return result.rows[0];
+};
+
+const getPaymentsByStatus = async (status) => {
+        const result = await pool.query('SELECT * FROM payment WHERE status = $1', [status]);
+        return result.rows;
 };
 
 const createPayment = async (paymentData) => {
@@ -36,6 +41,7 @@ const deletePayment = async (id) => {
 module.exports = {
     getPayments,
     getPaymentById,
+    getPaymentsByStatus,
     createPayment,
     updatePayment,
     deletePayment
