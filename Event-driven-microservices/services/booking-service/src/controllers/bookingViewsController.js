@@ -11,3 +11,7 @@ exports.showBookingsPage = async (req, res) => {
         res.status(500).send('Error loading bookings');
     }
 };
+
+exports.showCreateBookingPage = (req, res) => {
+    res.render('bookingCreate'); // Render the EJS template for creating a new booking
+};

@@ -33,10 +33,34 @@ const deleteBooking = async (id) => {
     return result.rows[0];
 };
 
+const filterBookings = async (filters) => {
+    const { destination, time, vehicle, date } = filters;
+    const query = 'SELECT * FROM bookings WHERE destination = $1 AND time = $2 AND vehicle_type = $3 AND date = $4';
+    const values = [destination, time, vehicle, date];
+    const result = await pool.query(query, values);
+    return result.rows;
+};
+
+const getAvailableTickets = async () => {
+    const result = await pool.query('SELECT * FROM available_tickets');
+    return result.rows;
+};
+
+const filterAvailableTickets = async (filters) => {
+    const { destination, time, vehicle, date } = filters;
+    const query = 'SELECT * FROM available_tickets WHERE destination = $1 AND time = $2 AND vehicle_type = $3 AND date = $4';
+    const values = [destination, time, vehicle, date];
+    const result = await pool.query(query, values);
+    return result.rows;
+};
+
 module.exports = {
     getBookings,
     getBookingById,
     createBooking,
     updateBooking,
-    deleteBooking
+    deleteBooking,
+    filterBookings,
+    getAvailableTickets,
+    filterAvailableTickets
 };
