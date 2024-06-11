@@ -1,7 +1,7 @@
 const pool = require('../db');
 
 const getInventory = async () => {
-    const result = await pool.query('SELECT * FROM inventory');
+    const result = await pool.query('SELECT * FROM tiket');
     return result.rows;
 };
 
@@ -11,10 +11,10 @@ const getInventoryById = async (id) => {
 };
 
 const createInventory = async (inventoryData) => {
-    const { customerName, bookingDate } = inventoryData;
+    const { passenger, departure, destination, date, departure_time, price } = inventoryData;
     const result = await pool.query(
-        'INSERT INTO inventory (customer_name, booking_date) VALUES ($1, $2) RETURNING *',
-        [customerName, bookingDate]
+        'INSERT INTO orders (passenger, departure, destination, date, departure_time, price) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+        [passenger, departure, destination, date, departure_time, price]
     );
     return result.rows[0];
 };

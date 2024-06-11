@@ -22,18 +22,30 @@
             <div class="w-2/3 p-6 bg-slate-50 rounded-lg shadow-md bg-opacity-95" alt="Booking List">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h1 class="font-semibold">Daftar Tiket / Pesanan</h1>
+                        <h1 class="font-semibold">Daftar Tiket</h1>
                         <h2 class="text-sm text-gray-400">Daftar tiket yang kamu pesan</h2>
                     </div>
-                    <button class="bg-customBlue-base hover:bg-customBlue-deep text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out">
+                    <button onclick="location.href='/order-form'" class="bg-customBlue-base hover:bg-customBlue-deep text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out">
                         Buat Pesanan
                     </button>
                 </div>
                 <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
-                <% inventory.slice(0, 5).forEach(function(inventory, index) { %>
-                    <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-8' : 'mt-4' %> <%= index === inventory.length - 1 ? 'mb-6' : '' %>">
-                        <p class="p-2 font-medium text-customBlue-deep"><%= inventory.nama_mobil %></p>
-                        <p class="px-2 font-semibold"><%= inventory.nama_mobil %> -> <%= inventory.detail %></p>
+                <% tiket.slice(0, 5).forEach(function(item, index) { %>
+                    <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-8' : 'mt-4' %> <%= index === tiket.length - 1 ? 'mb-6' : '' %>">
+                        <div class="flex justify-between items-start px-2 pt-2">
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <p class="font-medium text-customBlue-deep">Keberangkatan <%= new Date('1970-01-01T' + item.departure_time).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: undefined, hour12: false }) %></p>
+                                    <span class="text-gray-400 ml-2">Estimasi perjalanan 4 jam</span>
+                                </div>
+                                <p class="font-semibold"><%= item.departure %> -> <%= item.destination %></p>
+                            </div>
+                            <p class="font-semibold text-customBlue-deep"><%= item.passenger %></p>
+                        </div>
+                        <div class="flex justify-between items-center w-full px-2 pt-2 pb-2">
+                            <p class="text-sm text-gray-500">Tanggal: <span class="text-customBlue-deep"><%= new Date(item.date).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) %></span></p>
+                            <p class="text-sm text-gray-500">RP <span class="text-customBlue-deep"><%= Number(item.price).toLocaleString('id-ID') %></span></p>
+                        </div>
                     </div>
                 <% }); %>
             </div>
