@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Howlite Shuttle</title>
+    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/custom.css"> <!-- Include custom CSS here -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-poppins">
+    <div class=""> <!-- Add padding to the container -->
+        <%- include('navbar') %>   
+    </div>
+    
+    <!-- Main content here -->
+    <div class="relative pb-[768px] bg-slate-100"> <!-- Add padding to the container and margin-bottom -->
+        <img src="/images/bus_hero_image.jpg" alt="Hero Image" class="w-full h-80 object-cover brightness-75">
+        <div class="flex gap-8 ml-20 absolute top-20 left-0 right-0"> <!-- Group sidebar and booking list in a flex container with a gap, overlaying the hero image -->
+            <%- include('sidebar') %>
+            <div class="w-2/3 p-6 bg-slate-50 rounded-lg shadow-md bg-opacity-95" alt="Booking List">
+                <div class="text-lg font-semibold mb-4">Proses Pembayaran</div>
+                <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
+                <div class="mt-4 bg-white shadow overflow-hidden rounded-lg p-6">
+                    <div class="p-4 mb-4 border border-blue-300 bg-blue-100 rounded-lg shadow-sm">
+                        <p class="text-sm font-medium text-blue-700">ID Pembayaran: <%= payment.id %></p>
+                        <p class="text-sm font-medium text-blue-700">Status: <%= payment.status %></p>
+                    </div>
+                    <form action="/processPayment" method="POST">
+                        <div class="mb-4">
+                            <input type="hidden" name="paymentId" value="<%= payment.id %>">
+                            <label for="amount" class="block text-sm font-medium text-gray-700">Jumlah Bayar</label>
+                            <input type="text" id="amount" name="amount" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="<%= payment.amount %>" readonly>
+                        </div>
+                        <div class="mb-4">
+                            <label for="paymentMethod" class="block text-sm font-medium text-gray-700">Metode Pembayaran</label>
+                            <select id="paymentMethod" name="paymentMethod" class="mt-1 block w-full pl-3 pr-10 px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option value="bank_transfer">Transfer Bank</option>
+                                <option value="credit_card">Kartu Kredit</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="ewallet">E-Wallet</option>
+                            </select>
+                        </div>
+                        <% if (payment.status === 'Completed') { %>
+                            <a href="/processPayment" class="w-full bg-customBlue-base hover:bg-customBlue-deep text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Kembali</a>
+                        <% } else { %>
+                            
+                            <button type="submit" class="w-full bg-customBlue-base hover:bg-customBlue-deep text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Bayar
+                            </button>
+                        <% } %>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>
+
+</body>
+</html>
+

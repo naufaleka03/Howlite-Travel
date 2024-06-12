@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Howlite Shuttle</title>
+    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/custom.css"> <!-- Include custom CSS here -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-poppins">
+    <div class=""> <!-- Add padding to the container -->
+        <%- include('navbar') %>   
+    </div>
+    
+    <!-- Main content here -->
+    <div class="relative pb-[768px] bg-slate-100"> <!-- Add padding to the container and margin-bottom -->
+        <img src="/images/bus_hero_image.jpg" alt="Hero Image" class="w-full h-80 object-cover brightness-75">
+        <div class="flex gap-8 ml-20 absolute top-20 left-0 right-0"> <!-- Group sidebar and booking list in a flex container with a gap, overlaying the hero image -->
+            <%- include('sidebar') %>
+            <div class="w-2/3 p-6 bg-slate-50 rounded-lg shadow-md bg-opacity-95" alt="Booking List">
+                <div class="text-lg font-semibold mb-4">Daftar Pembayaran</div>
+                <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead>
+                            <tr>
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    ID Pembayaran
+                                </th>
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Jumlah
+                                </th>
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Tanggal Pembayaran
+                                </th>
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    ID Pemesanan
+                                </th>
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% paymentList.forEach(function(payment) { %>
+                                <% if (payment.status === 'Completed') { %>
+                                    <tr>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><a href="/paymentForm?paymentId=<%= payment.id %>"><%= payment.id %></a></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700">Rp<%= payment.amount %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><%= payment.paymentDate %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><%= payment.bookingId %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700">
+                                            <span class="<%= payment.status === 'Completed' ? 'text-green-500' : payment.status === 'Pending' ? 'text-orange-500' : 'text-red-500' %>">
+                                                <a href="/paymentForm?paymentId=<%= payment.id %>">
+                                                <%= payment.status %></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <% } else if (payment.status === 'Not Completed') { %>
+                                    <tr>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><a href="/paymentForm?paymentId=<%= payment.id %>"><%= payment.id %></a></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700">Rp<%= payment.amount %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><%= payment.paymentDate %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><%= payment.bookingId %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700">
+                                            <span class="<%= payment.status === 'Not Completed' ? 'text-red-500' : '' %>">
+                                                <a href="/paymentForm?paymentId=<%= payment.id %>">
+                                                <%= payment.status %></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>
+
+</body>
+</html>
