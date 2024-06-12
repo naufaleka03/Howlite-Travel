@@ -1,4 +1,5 @@
 const { User, Token } = require('../models/userModel');
+const { publishUserLogin } = require('../rabbitmq/publisher');
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
@@ -21,9 +22,12 @@ exports.login = async (req, res) => {
 
         // Send the token as an HTTP-only cookie
         res.cookie('token', token, { httpOnly: true, secure: true }); // Use secure: true if you are using HTTPS
-        res.redirect('/dashboard'); // Redirect to a secure page
+        res.redirect('/login'); // Redirect to a secure page
+
+        // Publish user login event to RabbitMQ
+        await publishUserLogin({ id: user.id, email: user.email });
     } catch (err) {
         console.error(err);
-        res.status(500).render('login', { message: 'Server error' });
+        return res.status(500).render('login', { message: 'Server error' });
     }
 };
