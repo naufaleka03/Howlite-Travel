@@ -31,13 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Start the server with socket.io
-<<<<<<< HEAD
-const PORT = process.env.PORT || 3005;
-app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
-=======
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
 
 const { startConsumer } = require('./rabbitmq/subscriber');
 startConsumer();
->>>>>>> 4545f89576532c08e8347839f6f9706b64f581ff
