@@ -26,8 +26,8 @@ exports.showUnpaidPayments = async (req, res) => {
 exports.showPaymentForm = async (req, res) => {
     try {
       const paymentId = req.query.paymentId;
-      const paymentForm = await paymentModel.getPaymentById(paymentId);
-      res.render('payment', { paymentList: paymentForm });
+      const payment = await paymentModel.getPaymentById(paymentId);
+      res.render('payment', { payment });
     } catch (error) {
       console.error('Error showing payment form:', error);
       res.status(500).send('Error showing payment form');
@@ -35,10 +35,11 @@ exports.showPaymentForm = async (req, res) => {
   };
 
 exports.processPayment = async (req, res) => {
-    const { paymentId } = req.body;
+    const paymentId = req.body.paymentId;
+    console.log(paymentId)
     try {
-        await paymentModel.updatePaymentStatus(paymentId, "Completed");
-        res.redirect('/paymentListCompleted');
+        await paymentModel.updatePayment(paymentId, "Completed");
+        res.redirect('paymentList'); 
     } catch (error) {
         console.error('Error processing payment:', error);
         res.status(500).send('Error processing payment');
@@ -53,23 +54,4 @@ exports.showCompletedPayments = async (req, res) => {
         console.error('Error loading completed payments:', error);
         res.status(500).send('Error loading completed payments');
     }
-};
-
-exports.showPaymentForm = async (req, res) => {
-    try {
-        console.log('Menampilkan form pembayaran...');
-        res.render('payments'); // Render the EJS template for payment form
-    } catch (error) {
-        console.error('Error menampilkan form pembayaran:', error);
-        res.status(500).send('Error menampilkan form pembayaran');
-    }
-};
-
-exports.processPayment = (req, res) => {
-    const { amount, paymentMethod } = req.body;
-    // Logika untuk memproses pembayaran
-    console.log(`Memproses pembayaran: ${amount} via ${paymentMethod}`);
-
-    // Setelah memproses pembayaran, redirect ke halaman konfirmasi atau status
-    res.redirect('/payment-success'); // Sesuaikan dengan halaman yang diinginkan
 };

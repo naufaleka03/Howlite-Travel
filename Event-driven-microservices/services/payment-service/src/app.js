@@ -5,6 +5,8 @@ const path = require('path');
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.use(express.urlencoded({ extended: true }));
+
 // Set the view engine to ejs
 app.set('view engine', 'ejs');
 

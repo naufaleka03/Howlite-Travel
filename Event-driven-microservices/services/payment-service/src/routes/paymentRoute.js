@@ -15,10 +15,9 @@ router.get('/payment', (req, res) => {
 router.get('/unpaidPayment', paymentViewsController.showUnpaidPayments);
 router.get('/paymentForm', paymentViewsController.showPaymentForm);
 router.post('/processPayment', paymentViewsController.processPayment);
-router.get('/paymentListCompleted', paymentViewsController.showCompletedPayments);
-
-// POST route untuk mengirim data pembayaran
-// router.post('/payments', paymentController.processPayment);
+router.get('/processPayment', paymentViewsController.processPayment);
+// router.get('/paymentList', paymentViewsController.processPayment);
+// router.post('/paymentList', paymentViewsController.processPayment);
 
 // API routes for managing payments
 router.get('/api/payments', paymentApiController.getAllPayments);
@@ -27,4 +26,4 @@ router.post('/api/payments', paymentApiController.createPayment);
 router.put('/api/payments/:id', paymentApiController.updatePayment);
 router.delete('/api/payments/:id', paymentApiController.deletePayment);
 
-module.exports = router;
+module.exports = router;s
