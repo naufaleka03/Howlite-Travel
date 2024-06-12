@@ -8,4 +8,10 @@ const pool = new Pool({
   port: 5432,
 });
 
+async function getUserData() {
+  const result = await pool.query('SELECT * FROM users');
+  return result.rows;
+}
+
+module.exports = { getUserData };
 module.exports = pool;

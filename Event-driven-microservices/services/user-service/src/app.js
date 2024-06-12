@@ -31,5 +31,5 @@ app.use(express.urlencoded({ extended: true }));
 // Your existing routes and other middleware
 
 // Start the server with socket.io
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
