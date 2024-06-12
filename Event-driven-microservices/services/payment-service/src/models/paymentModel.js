@@ -39,11 +39,18 @@ const deletePayment = async (id) => {
     return result.rows;
 };
 
+const upsertProfile = async (profileData) => {
+    const { user_id, username, email, phone, gender } = profileData;
+    const result = await pool.query('INSERT INTO payments (user_id, username, email, phone, gender) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (user_id) DO UPDATE SET username = $2, email = $3, phone = $4, gender = $5', [user_id, username, email, phone, gender]);
+    return result.rows[0];
+};
+
 module.exports = {
     getPayments,
     getPaymentById,
     getPaymentsByStatus,
     createPayment,
     updatePayment,
-    deletePayment
+    deletePayment,
+    upsertProfile
 };

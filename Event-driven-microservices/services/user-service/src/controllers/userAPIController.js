@@ -4,6 +4,7 @@ exports.getAllUsers = async (req, res) => {
     try {
         const users = await userModel.getUsers();
         res.json(users);
+        await publishUserProfile({ user_id: newUser.user_id, username: newUser.username, email: newUser.email, phone: newUser.phone, gender: newUser.gender });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
