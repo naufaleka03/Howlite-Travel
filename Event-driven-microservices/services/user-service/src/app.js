@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+require('dotenv').config();
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, '../public')));
@@ -17,19 +18,26 @@ app.set('views', path.join(__dirname, 'views'));
 const userRoutes = require('./routes/userRoutes');
 app.use(userRoutes);
 
-   // parse application/x-www-form-urlencoded
+// Add this line to parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-   // parse application/json
+// Add this line to parse application/json
 app.use(bodyParser.json());
+
 app.use(methodOverride('_method'));
+
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-// Your existing routes and other middleware
-
 // Start the server with socket.io
+<<<<<<< HEAD
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+=======
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+
+const { startConsumer } = require('./rabbitmq/subscriber');
+startConsumer();
+>>>>>>> 4545f89576532c08e8347839f6f9706b64f581ff

@@ -1,44 +1,57 @@
 const pool = require('../db');
 
 const getUsers = async () => {
-    const result = await pool.query('SELECT * FROM users');
+    const result = await pool.query('SELECT * FROM profiles');
     return result.rows;
 };
 
-const getUserById = async (id) => {
-    const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+const getUserById = async (userId) => {
+    const result = await pool.query('SELECT * FROM profiles WHERE user_id = $1', [userId]);
     return result.rows[0];
 };
 
 const createUser = async (userData) => {
-    const { customerName, userDate } = userData;
+    const { userId, username, email, phone, gender } = userData;
     const result = await pool.query(
-        'INSERT INTO users (customer_name, user_date) VALUES ($1, $2) RETURNING *',
-        [customerName, userDate]
+        'INSERT INTO profiles (user_id, username, email, phone, gender) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [userId, username, email, phone, gender]
     );
     return result.rows[0]; // Return the newly created user
 };
 
 const updateUser = async (userId, userData) => {
-    if (!userData) {
-        throw new Error('User data is undefined');
-    }
-
-    const { username, email, phone, gender, password } = userData;
-    const values = [username, email, phone, gender, password, userId];
-    const query = 'UPDATE users SET username = $1, email = $2, phone = $3, gender = $4, password = $5 WHERE id = $6';
-    
     try {
-        const result = await pool.query(query, values);
-        console.log(result.rows[0]); // Tambahkan log untuk debugging
+        const { username, email, phone, gender } = userData;
+        const result = await pool.query(
+            'UPDATE profiles SET username = $1, email = $2, phone = $3, gender = $4 WHERE user_id = $5 RETURNING *',
+            [username, email, phone, gender, userId]
+        );
         return result.rows[0];
-    } catch (err) {
-        throw new Error('Error updating user data');
+    } catch (error) {
+        throw new Error('Failed to update user: ' + error.message);
     }
 };
 
+const insertUser = async (userData) => {
+    const { userId, username, email, phone, gender } = userData;
+    const result = await pool.query(
+        'INSERT INTO profiles (user_id, username, email, phone, gender) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [userId, username, email, phone, gender]
+    );
+    return result.rows[0]; // Return the newly inserted user
+};
+
 const deleteUser = async (id) => {
-    const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
+    const result = await pool.query('DELETE FROM profiles WHERE id = $1 RETURNING *', [id]);
+    return result.rows[0];
+};
+
+const upsertUser = async (userData) => {
+    const { id, email } = userData;
+    const result = await pool.query(
+        'INSERT INTO profiles (user_id, email) VALUES ($1, $2) ON CONFLICT (user_id) DO UPDATE SET email = EXCLUDED.email RETURNING *',
+        [id, email]
+    );
     return result.rows[0];
 };
 
@@ -47,5 +60,7 @@ module.exports = {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    insertUser,
+    deleteUser,
+    upsertUser
 };
