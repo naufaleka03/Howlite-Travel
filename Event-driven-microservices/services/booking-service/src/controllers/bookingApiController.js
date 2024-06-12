@@ -48,3 +48,30 @@ exports.deleteBooking = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.filterBookings = async (req, res) => {
+    try {
+        const filteredBookings = await bookingModel.filterBookings(req.body);
+        res.json(filteredBookings);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getAvailableTickets = async (req, res) => {
+    try {
+        const tickets = await bookingModel.getAvailableTickets();
+        res.json(tickets);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.filterAvailableTickets = async (req, res) => {
+    try {
+        const filteredTickets = await bookingModel.filterAvailableTickets(req.body);
+        res.json(filteredTickets);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
