@@ -21,5 +21,7 @@ app.use('/', bookingRoutes);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
 
-const { startConsumer } = require('./rabbitmq/subscriber');
-startConsumer();
+const { startConsumerTicket, startConsumerPayment } = require ('./rabbitmq/subscriber');
+
+startConsumerTicket();
+startConsumerPayment();
