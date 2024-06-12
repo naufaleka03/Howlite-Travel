@@ -68,4 +68,5 @@ class Token {
     }
 }
 
-module.exports = { User, Token };  // Export User and Token classes
+module.exports = { User, Token, pool };  // Export User and Token classes
+
