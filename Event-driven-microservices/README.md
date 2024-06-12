@@ -17,6 +17,7 @@ Node modules:
   },
 
 browser-sync start --proxy "http://localhost:3000" --files "services/booking-service/public/css/*.css, services/booking-service/src/**/*.js, services/booking-service/src/views/**/*.ejs" --no-notify
+browser-sync start --proxy "http://localhost:3000" --files "../booking-service/public/css/*.css, ../booking-service/src/**/*.js, ../booking-service/src/views/**/*.ejs" --no-notify
 
 docker pull rabbitmq
    docker run -d --name my-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3-management
