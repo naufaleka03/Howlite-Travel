@@ -924,6 +924,10 @@ video {
   padding-right: 2.5rem;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .text-center {
   text-align: center;
 }
@@ -932,6 +936,19 @@ video {
   font-family: Poppins, sans-serif;
 }
 
+<<<<<<< HEAD
+=======
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+>>>>>>> c5e27105892ef545e3ecf842b12a4fbd649aa2ba
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
