@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Howlite Shuttle</title>
+    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="/css/custom.css"> <!-- Include custom CSS here -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-poppins">
+    <div class=""> <!-- Add padding to the container -->
+        <%- include('navbar') %>   
+    </div>
+    
+    <!-- Main content here -->
+    <div class="relative pb-[768px] bg-slate-100"> <!-- Add padding to the container and margin-bottom -->
+        <img src="/images/bus_hero_image.jpg" alt="Hero Image" class="w-full h-80 object-cover brightness-75">
+        <div class="flex gap-8 ml-20 absolute top-20 left-0 right-20"> <!-- Group sidebar and booking list in a flex container with a gap, overlaying the hero image -->
+            <div class="container mx-auto p-8">
+                <h1 class="text-xl font-semibold mb-4">Form Pemesanan Tiket</h1>
+                <div class="card bg-white shadow-md rounded-lg p-4"> <!-- Card container -->
+                    <form action="/submit-order" method="POST">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nama:</label>
+                            <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="departure" class="block text-gray-700 text-sm font-bold mb-2">Keberangkatan:</label>
+                            <select id="departure" name="departure" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                                <option value=""></option>
+                                <option value="Jakarta">Jakarta</option>
+                                <option value="Bogor">Bogor</option>
+                                <option value="Depok">Depok</option>
+                                <option value="Tangerang">Tangerang</option>
+                                <option value="Bekasi">Bekasi</option>
+                                <option value="Cianjur">Cianjur</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="destination" class="block text-gray-700 text-sm font-bold mb-2">Tujuan:</label>
+                            <select id="destination" name="destination" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                                <option value=""></option>
+                                <option value="Purwokerto">Purwokerto</option>
+                                <option value="Magelang">Magelang</option>
+                                <option value="Pekalongan">Pekalongan</option>
+                                <option value="Semarang">Semarang</option>
+                                <option value="Tegal">Tegal</option>
+                                <option value="Surakarta">Surakarta</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Tanggal:</label>
+                            <input type="date" id="date" name="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>                        
+                        <div class="mb-4">
+                            <label for="departureTime" class="block text-gray-700 text-sm font-bold mb-2">Waktu Keberangkatan:</label>
+                            <select id="departureTime" name="departureTime" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                                <option value=""></option>
+                                <option value="08:00">08.00</option>
+                                <option value="08:30">08.30</option>
+                                <option value="09:00">09.00</option>
+                                <option value="09:30">09.30</option>
+                                <option value="10:00">10.00</option>
+                                <option value="10:30">10.30</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Harga:</label>
+                            <input type="text" id="price" name="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
+                        </div>
+                        <button type="submit" class="bg-customBlue-base hover:bg-customBlue-deep text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out">Submit Pesanan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>
+
+    <script>
+        document.getElementById('departure').addEventListener('change', function() {
+            var prices = {
+                'Jakarta': '500000',
+                'Bogor': '400000',
+                'Depok': '375000',
+                'Tangerang': '350000',
+                'Bekasi': '415000',
+                'Cianjur': '275000'
+            };
+            var selectedCity = this.value;
+            var priceInput = document.getElementById('price');
+            priceInput.value = prices[selectedCity] || '0'; // Default to '0' if no city is selected
+        });
+    </script>
+</body>
+</html>

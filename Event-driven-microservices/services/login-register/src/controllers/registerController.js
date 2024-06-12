@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { User } = require('../models/userModel');
+
 console.log('Imported User:', User);
 
 exports.register = async (req, res) => {

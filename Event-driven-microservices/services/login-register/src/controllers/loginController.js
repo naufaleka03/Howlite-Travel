@@ -3,6 +3,7 @@ const { publishUserLogin } = require('../rabbitmq/publisher');
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
+
     if (!email || !password) {
         return res.status(400).render('login', { message: 'Email and password are required' });
     }
