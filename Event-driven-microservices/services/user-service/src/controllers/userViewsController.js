@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const { publishUserProfile } = require('../rabbitmq/publisher');
 
 exports.showUserProfile = async (req, res) => {
     try {
@@ -8,6 +9,8 @@ exports.showUserProfile = async (req, res) => {
             return res.status(404).send('User not found');
         }
         res.render('profile', { user }); // Render the EJS template named 'profile'
+        await publishUserProfile({ user_id: user.user_id, username: user.username, email: user.email, phone: user.phone, gender: user.gender });
+
     } catch (error) {
         res.status(500).send('Error retrieving user profile');
     }
@@ -32,6 +35,7 @@ exports.updateUserProfile = async (req, res) => {
     try {
         await userModel.updateUser(userId, { username, email, phone, gender });
         res.redirect(`/profile/${userId}`);
+        await publishUserProfile({ user_id: userId, username, email, phone, gender });
     } catch (error) {
         console.error('Error updating user profile:', error);
         res.status(500).send('Error updating user profile');
@@ -43,6 +47,7 @@ exports.updateUser = async (req, res) => {
     try {
         await userModel.updateUser(userData);
         res.redirect('/profile');
+        await publishUserProfile({ user_id: userData.user_id, ...userData });
     } catch (error) {
         res.status(500).send('Error updating user data');
     }

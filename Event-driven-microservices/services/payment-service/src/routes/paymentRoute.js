@@ -26,4 +26,4 @@ router.post('/api/payments', paymentApiController.createPayment);
 router.put('/api/payments/:id', paymentApiController.updatePayment);
 router.delete('/api/payments/:id', paymentApiController.deletePayment);
 
-module.exports = router;s
+module.exports = router;
