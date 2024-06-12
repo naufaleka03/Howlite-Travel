@@ -1,4 +1,5 @@
 const paymentModel = require('../models/paymentModel');
+const { publishPaymentData } = require('../rabbitmq/publisher');
 
 exports.showPaymentsPage = async (req, res) => {
     try {
@@ -6,6 +7,16 @@ exports.showPaymentsPage = async (req, res) => {
         const paymentList = await paymentModel.getPayments();
         console.log('Payment List fetched:', paymentList);
         res.render('paymentList', { paymentList }); // Render the EJS template with real payments data
+        // Mengirim setiap pembayaran secara individual
+        for (const payment of paymentList) {
+            await publishPaymentData({
+                id: payment.id,
+                amount: payment.amount,
+                bookingId: payment.bookingId,
+                status: payment.status,
+                paymentDate: payment.paymentDate
+            });
+        }
     } catch (error) {
         console.error('Error loading payment list:', error); // Log the error details
         res.status(500).send('Error loading payment list');

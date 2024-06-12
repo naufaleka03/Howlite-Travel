@@ -1,17 +1,17 @@
 const amqp = require('amqplib');
 
-async function publishUserLogin(userData) {
+async function publishPaymentData(paymentData) {
     let conn, channel;
     try {
         conn = await amqp.connect('amqp://localhost');
         channel = await conn.createChannel();
-        const exchange = 'user_data';
-        const routingKey = 'user.login';
+        const exchange = 'payment_data';
+        const routingKey = 'payment.new';
 
         await channel.assertExchange(exchange, 'direct', { durable: true });
-        channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(userData)));
+        channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(paymentData)));
 
-        console.log(" [x] Sent %s: '%s'", routingKey, JSON.stringify(userData));
+        console.log(" [x] Sent %s: '%s'", routingKey, JSON.stringify(paymentData));
     } catch (error) {
         console.error('Failed to publish message:', error);
     } finally {
@@ -20,4 +20,4 @@ async function publishUserLogin(userData) {
     }
 }
 
-module.exports = { publishUserLogin };
+module.exports = { publishPaymentData };

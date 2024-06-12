@@ -1,0 +1,30 @@
+const amqp = require('amqplib');
+const { upsertPayment } = require('../models/bookingModel');
+
+async function startConsumer() {
+    const conn = await amqp.connect('amqp://localhost');
+    const channel = await conn.createChannel();
+    const exchange = 'payment_data';
+
+    await channel.assertExchange(exchange, 'direct', { durable: true });
+    const q = await channel.assertQueue('', { exclusive: true });
+
+    console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue);
+    channel.bindQueue(q.queue, exchange, 'payment.new');
+
+    channel.consume(q.queue, function(msg) {
+        if (msg.content) {
+            console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
+            handlePaymentMessage(msg);
+        }
+    }, {
+        noAck: true
+    }).catch(error => console.error('Error in consuming message:', error));
+}
+
+function handlePaymentMessage(msg) {
+    const paymentData = JSON.parse(msg.content.toString());
+    upsertPayment(paymentData); // Ensure this function correctly handles the payment data
+}
+
+module.exports = { startConsumer };
