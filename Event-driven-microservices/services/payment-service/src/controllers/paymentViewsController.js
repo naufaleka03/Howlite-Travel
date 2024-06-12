@@ -26,8 +26,9 @@ exports.showUnpaidPayments = async (req, res) => {
 exports.showPaymentForm = async (req, res) => {
     try {
       const paymentId = req.query.paymentId;
-      const paymentForm = await paymentModel.getPaymentById(paymentId);
-      res.render('payment', { paymentList: paymentForm });
+      const payment = await paymentModel.getPaymentById(paymentId);
+      res.render('payment', { payment });
+
     } catch (error) {
       console.error('Error showing payment form:', error);
       res.status(500).send('Error showing payment form');
@@ -35,10 +36,12 @@ exports.showPaymentForm = async (req, res) => {
   };
 
 exports.processPayment = async (req, res) => {
-    const { paymentId } = req.body;
+    const paymentId = req.body.paymentId;
+    console.log(paymentId)
     try {
-        await paymentModel.updatePaymentStatus(paymentId, "Completed");
-        res.redirect('/paymentListCompleted');
+        await paymentModel.updatePayment(paymentId, "Completed");
+        res.redirect('paymentList'); 
+
     } catch (error) {
         console.error('Error processing payment:', error);
         res.status(500).send('Error processing payment');
@@ -54,6 +57,7 @@ exports.showCompletedPayments = async (req, res) => {
         res.status(500).send('Error loading completed payments');
     }
 };
+
 
 exports.showPaymentForm = async (req, res) => {
     try {

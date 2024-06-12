@@ -5,6 +5,8 @@ const path = require('path');
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.use(express.urlencoded({ extended: true }));
+
 // Set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -23,5 +25,8 @@ app.use('/', paymentRoute);
 // });
 
 // Start the server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server is running on http://localhost:${3001}`));
+const PORT = process.env.PORT || 3002;
+app.listen(PORT, () => console.log(`Server is running on http://localhost:${3002}`));
+
+const { startConsumer } = require('./rabbitmq/subscriber');
+startConsumer();

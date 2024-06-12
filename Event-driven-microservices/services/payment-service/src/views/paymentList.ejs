@@ -26,36 +26,52 @@
                     <table class="min-w-full bg-white">
                         <thead>
                             <tr>
-                                <th class="border-b-2 p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     ID Pembayaran
                                 </th>
-                                <th class="border-b-2 p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Jumlah
                                 </th>
-                                <th class="border-b-2 p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Tanggal Pembayaran
                                 </th>
-                                <th class="border-b-2 p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     ID Pemesanan
                                 </th>
-                                <th class="border-b-2 p-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th class="border-b-2 p-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Status
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <% paymentList.forEach(function(payment) { %>
-                                <tr>
-                                    <td class="border-b p-4 text-sm text-gray-700"><a href="/paymentForm?paymentId=<%= payment.id %>"><%= payment.id %></a></td>
-                                    <td class="border-b p-4 text-sm text-gray-700">Rp<%= payment.amount %></td>
-                                    <td class="border-b p-4 text-sm text-gray-700"><%= payment.paymentDate %></td>
-                                    <td class="border-b p-4 text-sm text-gray-700"><%= payment.bookingId %></td>
-                                    <td class="border-b p-4 text-sm text-gray-700">
-                                        <span class="<%= payment.status === 'Completed' ? 'text-green-500' : payment.status === 'Pending' ? 'text-orange-500' : 'text-red-500' %>">
-                                            <%= payment.status %>
-                                        </span>
-                                    </td>
-                                </tr>
+                                <% if (payment.status === 'Completed') { %>
+                                    <tr>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><a href="/paymentForm?paymentId=<%= payment.id %>"><%= payment.id %></a></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700">Rp<%= payment.amount %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><%= payment.paymentDate %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><%= payment.bookingId %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700">
+                                            <span class="<%= payment.status === 'Completed' ? 'text-green-500' : payment.status === 'Pending' ? 'text-orange-500' : 'text-red-500' %>">
+                                                <a href="/paymentForm?paymentId=<%= payment.id %>">
+                                                <%= payment.status %></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <% } else if (payment.status === 'Not Completed') { %>
+                                    <tr>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><a href="/paymentForm?paymentId=<%= payment.id %>"><%= payment.id %></a></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700">Rp<%= payment.amount %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><%= payment.paymentDate %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700"><%= payment.bookingId %></td>
+                                        <td class="border-b p-4 text-sm text-center text-gray-700">
+                                            <span class="<%= payment.status === 'Not Completed' ? 'text-red-500' : '' %>">
+                                                <a href="/paymentForm?paymentId=<%= payment.id %>">
+                                                <%= payment.status %></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <% } %>
                             <% }); %>
                         </tbody>
                     </table>
