@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 require('dotenv').config();
 
@@ -18,11 +17,9 @@ app.set('views', path.join(__dirname, 'views'));
 const userRoutes = require('./routes/userRoutes');
 app.use(userRoutes);
 
-// Add this line to parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Add this line to parse application/json
-app.use(bodyParser.json());
+// Use built-in middleware for parsing request bodies
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(methodOverride('_method'));
 

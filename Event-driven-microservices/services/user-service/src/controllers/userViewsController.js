@@ -27,9 +27,11 @@ exports.showEditUserPage = async (req, res) => {
 
 
 exports.updateUserProfile = async (req, res) => {
-    console.log("Request body:", req.body);
-    const { username, email, phone, gender } = req.body;
     try {
+        const { username, email, phone, gender } = req.body || {};
+        if (!username || !email || !phone || !gender) {
+            return res.status(400).send('Missing required fields');
+        }
         await userModel.updateUser(userId, { username, email, phone, gender });
         res.redirect(`/profile/${userId}`);
     } catch (error) {
