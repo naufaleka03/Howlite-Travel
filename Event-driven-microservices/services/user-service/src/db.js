@@ -8,7 +8,6 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-<<<<<<< HEAD
 async function getUserData() {
   const result = await pool.query('SELECT * FROM users');
   return result.rows;
@@ -16,6 +15,3 @@ async function getUserData() {
 
 module.exports = { getUserData };
 module.exports = pool;
-=======
-module.exports = pool;
->>>>>>> 4545f89576532c08e8347839f6f9706b64f581ff
