@@ -30,15 +30,12 @@ exports.showEditUserPage = async (req, res) => {
 
 
 exports.updateUserProfile = async (req, res) => {
-<<<<<<< HEAD
     console.log("Request body:", req.body);
     const { username, email, phone, gender } = req.body || {};
     if (!username) {
         console.log("Username is required");
         return res.status(400).send("Username is required");
     }
-=======
->>>>>>> f2494623b76af67d87847f607172adc461be3b06
     try {
         const { username, email, phone, gender } = req.body || {};
         if (!username || !email || !phone || !gender) {

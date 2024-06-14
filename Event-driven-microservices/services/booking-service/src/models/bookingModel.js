@@ -54,6 +54,22 @@ const filterAvailableTickets = async (filters) => {
     return result.rows;
 };
 
+const upsertTicket = async (ticketData) => {
+    const { id, passenger, departure, destination, date, departure_time, price, transportation } = ticketData;
+    const result = await pool.query(
+        'INSERT INTO bookings (id, passenger, departure, destination, date, departure_time, price, transportation) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO UPDATE SET passenger = $2, departure = $3, destination = $4, date = $5, departure_time = $6, price = $7, transportation = $8 RETURNING *',
+        [id, passenger, departure, destination, date, departure_time, price, transportation]
+    );
+    return result.rows[0];
+};
+
+const upsertPayment = async (paymentData) => {
+    const { bookingId, status } = paymentData;
+    const result = await pool.query(
+        'INSERT INTO bookings (bookingId, status) VALUES ($1, $2) ON CONFLICT (bookingId) DO UPDATE SET status = EXCLUDED.status RETURNING *', [id, status]);
+    return result.rows[0];
+}
+
 module.exports = {
     getBookings,
     getBookingById,
@@ -62,5 +78,7 @@ module.exports = {
     deleteBooking,
     filterBookings,
     getAvailableTickets,
-    filterAvailableTickets
+    filterAvailableTickets,
+    upsertTicket,
+    upsertPayment
 };
