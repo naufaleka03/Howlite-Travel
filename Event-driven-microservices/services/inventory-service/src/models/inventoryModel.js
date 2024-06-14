@@ -6,7 +6,7 @@ const getInventory = async () => {
 };
 
 const getInventoryById = async (id) => {
-    const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [id]);
+    const result = await pool.query('SELECT * FROM tiket WHERE id = $1', [id]);
     return result.rows[0];
 };
 
