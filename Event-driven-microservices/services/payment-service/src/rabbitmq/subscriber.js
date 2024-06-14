@@ -15,17 +15,17 @@ async function startConsumer() {
     channel.consume(q.queue, function(msg) {
         if (msg.content) {
             console.log("Menerima data: [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-            handleProfileMessage(msg);
+            // handleProfileMessage(msg);
         }
     }, {
         noAck: true
     }).catch(error => console.error('Error in consuming message:', error));
 }
 
-function handleProfileMessage(msg) {
-    const userData = JSON.parse(msg.content.toString());
-    upsertProfile(userData); // Make sure this function correctly handles the user data
-}
+// function handleProfileMessage(msg) {
+//     const userData = JSON.parse(msg.content.toString());
+//     upsertProfile(userData); // Make sure this function correctly handles the user data
+// }
 
 module.exports = { startConsumer };
 

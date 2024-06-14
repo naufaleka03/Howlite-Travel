@@ -31,7 +31,11 @@ exports.showEditUserPage = async (req, res) => {
 
 exports.updateUserProfile = async (req, res) => {
     console.log("Request body:", req.body);
-    const { username, email, phone, gender } = req.body;
+    const { username, email, phone, gender } = req.body || {};
+    if (!username) {
+        console.log("Username is required");
+        return res.status(400).send("Username is required");
+    }
     try {
         await userModel.updateUser(userId, { username, email, phone, gender });
         res.redirect(`/profile/${userId}`);
