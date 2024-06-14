@@ -566,11 +566,6 @@ video {
   bottom: 0px;
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -697,7 +692,6 @@ video {
 
 .max-w-4xl {
   max-width: 56rem;
-}
 
 .max-w-lg {
   max-width: 32rem;
@@ -738,7 +732,7 @@ video {
 .rounded {
   border-radius: 0.25rem;
 }
-
+  
 .rounded-lg {
   border-radius: 0.5rem;
 }
