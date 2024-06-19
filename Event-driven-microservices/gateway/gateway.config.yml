@@ -1,0 +1,50 @@
+http:
+  port: 8080
+apiEndpoints:
+  loginService:
+    host: '*'
+    paths: ['/register', '/login']
+  userService:
+    host: '*'
+    paths: ['/profile/:userid', '/profile/:userid/edit', '/profile/:userid/update']
+  paymentService:
+    host: '*'
+    paths: ['/unpaidPayment', '/processPayment', '/paymentList']
+  inventoryService:
+    host: '*'
+    paths: ['/inventory', '/order-form', '/submit-order']
+  bookingService:
+    host: '*'
+    paths: ['/bookings', '/bookings/create']
+
+serviceEndpoints:
+  loginService:
+    url: 'http://localhost:3000'
+  userService:
+    url: 'http://localhost:3001'
+  paymentService:
+    url: 'http://localhost:3002'
+  inventoryService:
+    url: 'http://localhost:3003'
+  bookingService:
+    url: 'http://localhost:3004'
+
+policies:
+  - proxy
+pipelines:
+  loginService:
+    apiEndpoints:
+      - loginService
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: loginService
+              changeOrigin: true
+  otherService:
+    apiEndpoints:
+      - otherService
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: otherService
+              changeOrigin: true
