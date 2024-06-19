@@ -27,7 +27,7 @@ function handleTicketMessage(msg) {
     upsertTicket(ticketData); // Ensure this function is implemented to process the ticket data
 }
 
-module.exports = { startConsumer };const amqp = require('amqplib');
+module.exports = { startConsumerTicket };
 const { upsertPayment } = require('../models/bookingModel');
 
 async function startConsumerPayment() {

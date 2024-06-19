@@ -30,8 +30,8 @@
                     </button>
                 </div>
                 <hr class="m-6 w-full border-1 border-gray-300 mx-auto"/>
-                <% tiket.slice(0, 5).forEach(function(item, index) { %>
-                    <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-8' : 'mt-4' %> <%= index === tiket.length - 1 ? 'mb-6' : '' %>">
+                <% tiketList.slice(0, 5).forEach(function(item, index) { %>
+                    <div class="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 <%= index === 0 ? 'mt-8' : 'mt-4' %> <%= index === tiketList.length - 1 ? 'mb-6' : '' %>">
                         <div class="flex justify-between items-start px-2 pt-2">
                             <div class="flex-1">
                                 <div class="flex items-center">
@@ -45,7 +45,7 @@
                         <div class="flex justify-between items-center w-full px-2 pb-2">
                             <div>
                                 <p class="text-sm text-gray-500"><span class="text-customBlue-deep"><%= item.transportation %></span></p>
-                                <p class="text-sm text-gray-500">Tanggal: <span class="text-customBlue-deep"><%= new Date(item.date).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) %></span></p>
+                                <p class="text-sm text-gray-500 mt-2">Tanggal: <span class="text-customBlue-deep"><%= new Date(item.date).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) %></span></p>
                             </div>
                             <p class="text-sm text-gray-500">RP <span class="text-customBlue-deep"><%= Number(item.price).toLocaleString('id-ID') %></span></p>
                         </div>

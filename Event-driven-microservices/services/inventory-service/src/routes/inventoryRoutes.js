@@ -10,6 +10,9 @@ router.get('/inventory', inventoryViewsController.showInventoryPage);
 
 router.post('/submit-order', inventoryViewsController.submitForm);
 
+router.post('/order-form', inventoryViewsController.submitForm);
+
+
 // API routes for managing bookings
 router.get('/api/inventory', inventoryApiController.getAllInventory);
 router.get('/api/inventory/:id', inventoryApiController.getInventory);
