@@ -44,7 +44,7 @@
                         </div>
                         <div class="flex justify-between items-center w-full px-2 pb-2">
                             <div>
-                                <p class="text-sm text-gray-500"><span class="text-customBlue-deep"><%= item.transportation %></span></p>
+                                <p class="text-sm text-gray-500"><span class="text-customBlue-deep"><%= item.transportation %>, <%= item.transport_type %></span></p>
                                 <p class="text-sm text-gray-500 mt-2">Tanggal: <span class="text-customBlue-deep"><%= new Date(item.date).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' }) %></span></p>
                             </div>
                             <p class="text-sm text-gray-500">RP <span class="text-customBlue-deep"><%= Number(item.price).toLocaleString('id-ID') %></span></p>

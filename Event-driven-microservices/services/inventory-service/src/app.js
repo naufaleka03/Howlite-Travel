@@ -20,15 +20,6 @@ const inventoryRoutes = require('./routes/inventoryRoutes');
 // Use routes
 app.use('/', inventoryRoutes);
 
-// Serve index.ejs from views directory
-app.get('/', (req, res) => {
-    res.render('inventoryList');
-});
-
 // Start the server
 const PORT = process.env.PORT || 3099;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${3099}`));
-
-app.get('/order-form', (req, res) => {
-    res.render('orderForm');
-});

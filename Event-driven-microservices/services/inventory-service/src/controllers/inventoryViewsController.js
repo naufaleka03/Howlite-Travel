@@ -9,7 +9,7 @@ exports.showInventoryPage = async (req, res) => {
         res.render('inventoryList', { tiketList }); // Render the EJS template with real inventory data
         for (const tiket of tiketList) {
             await publishTicketData({ 
-                id: tiket.id, passenger: tiket.passenger, departure: tiket.departure, destination: tiket.destination, date: tiket.date, departure_time: tiket.departure_time, price: tiket.price, transportation: tiket.transportation });
+                id: tiket.id, passenger: tiket.passenger, departure: tiket.departure, destination: tiket.destination, date: tiket.date, departure_time: tiket.departure_time, price: tiket.price, transportation: tiket.transportation, trasport_type: tiket.transport_type });
         }
     } catch (error) {
         console.error('Error loading bookings:', error); // Log the error details
@@ -17,15 +17,18 @@ exports.showInventoryPage = async (req, res) => {
     }
 };
 
+exports.showOrderForm = (req, res) => {
+    res.render('orderForm');
+};
+
 exports.submitForm = async (req, res) => {
-    // const { passenger, departure, destination, date, departure_time, price } = req.body;
-    // const tiket = 'INSERT INTO orders (passenger, departure, destination, date, departure_time, price) VALUES ($1, $2, $3, $4, $5, $6)';
-    
+    const orderData = req.body; // Mengambil semua data dari form
+
     try {
-        await pool.query(tiket, [passenger, departure, destination, date, departure_time, price]);
+        const newOrder = await inventoryModel.createOrder(orderData); // Memanggil fungsi createOrder dari model
         res.send('Order submitted successfully');
     } catch (err) {
         console.error(err);
-        res.status(500).send('Failed to insert order');
+        res.status(500).send('Failed to order');
     }
 };

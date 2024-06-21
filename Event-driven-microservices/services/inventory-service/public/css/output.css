@@ -693,6 +693,10 @@ video {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .flex {
   display: flex;
 }
@@ -820,11 +824,6 @@ video {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
-.bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-}
-
 .bg-customBlue-base {
   --tw-bg-opacity: 1;
   background-color: rgb(25 167 206 / var(--tw-bg-opacity));
@@ -833,6 +832,11 @@ video {
 .bg-customBlue-darker {
   --tw-bg-opacity: 1;
   background-color: rgb(10 46 78 / var(--tw-bg-opacity));
+}
+
+.bg-customBlue-deep {
+  --tw-bg-opacity: 1;
+  background-color: rgb(20 108 148 / var(--tw-bg-opacity));
 }
 
 .bg-slate-100 {
@@ -850,9 +854,9 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-customBlue-deep {
+.bg-gray-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(20 108 148 / var(--tw-bg-opacity));
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-95 {
@@ -1000,6 +1004,11 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -1056,6 +1065,11 @@ video {
 .hover\:bg-customBlue-deep:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(20 108 148 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .hover\:underline:hover {
