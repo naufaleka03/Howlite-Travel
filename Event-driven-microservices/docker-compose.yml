@@ -1,0 +1,39 @@
+version: '3'
+services:
+  loginService:
+    build:
+      context: ./services/login-register
+      dockerfile: Dockerfile
+    image: login-register-image
+    ports:
+      - "3000:3000"
+  userService:
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    image: user-service-image
+    ports:
+      - "3001:3001"
+  paymentService:
+    build:
+      context: ./services/payment-service
+      dockerfile: Dockerfile
+    image: payment-service-image
+    ports:
+      - "3002:3002"
+  inventoryService:
+    build:
+      context: ./services/inventory-service
+      dockerfile: Dockerfile
+    image: inventory-service-image
+    ports:
+      - "3003:3003"
+  bookingService:
+    build:
+      context: ./services/booking-service
+      dockerfile: Dockerfile
+    image: booking-service-image
+    ports:
+      - "3004:3004"
+
+# docker-compose -f docker-compose.yml up

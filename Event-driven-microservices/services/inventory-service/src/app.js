@@ -21,5 +21,14 @@ const inventoryRoutes = require('./routes/inventoryRoutes');
 app.use('/', inventoryRoutes);
 
 // Start the server
+<<<<<<< HEAD
 const PORT = process.env.PORT || 3099;
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${3099}`));
+=======
+const PORT = process.env.PORT || 3003;
+app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+
+app.get('/order-form', (req, res) => {
+    res.render('orderForm');
+});
+>>>>>>> 6860d2011b29687bcd4acd6a613350a18cfaff3a
